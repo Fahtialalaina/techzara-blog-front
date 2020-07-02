@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { COMMENT_LINK,generateParams } from 'src/app/utils/links';
+import { COMMENT_LINK,generateParams, HEADERS } from 'src/app/utils/links';
 
 class Comment{
   public comment:string;
@@ -23,7 +23,7 @@ export class CommentService {
    * Retourne une promise
    */
   public create(obj:Comment):Promise<Object>{
-    return this.http.post(COMMENT_LINK,obj)
+    return this.http.post(COMMENT_LINK,obj,{headers:HEADERS})
     .toPromise();
   }
 
@@ -38,7 +38,7 @@ export class CommentService {
       key:"page",
       value:page.toString()
     }]);
-    return this.http.get(COMMENT_LINK+params)
+    return this.http.get(COMMENT_LINK+params,{headers:HEADERS})
     .toPromise();
   }
 
@@ -49,11 +49,7 @@ export class CommentService {
    * Retourne une promise
    */
   public getOne(id:string):Promise<Object>{
-    var params=generateParams([{
-      key:"id",
-      value:id
-    }])
-    return this.http.get(COMMENT_LINK+params)
+    return this.http.get(COMMENT_LINK+"/"+id,{headers:HEADERS})
     .toPromise();
   }
 
@@ -65,13 +61,9 @@ export class CommentService {
    * Retourne une promise
    */
   public replace(comment:string,id:string){
-    var params=generateParams([{
-      key:"id",
-      value:id
-    }])
-    return this.http.put(COMMENT_LINK+params,{
+    return this.http.put(COMMENT_LINK+"/"+id,{
       comment:comment
-    })
+    },{headers:HEADERS})
     .toPromise();
   }
   
@@ -82,11 +74,7 @@ export class CommentService {
    * Retourne une promise
    */
   public remove(id:string){
-    var params=generateParams([{
-      key:"id",
-      value:id
-    }])
-    return this.http.delete(COMMENT_LINK+params)
+    return this.http.delete(COMMENT_LINK+"/"+id,{headers:HEADERS})
     .toPromise();
   }
 }

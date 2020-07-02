@@ -1,0 +1,21 @@
+@import "../../../../../theme/current.theme.scss";
+
+*{
+    color: $text_color;
+}
+
+div.container{
+    margin-top: 5em;
+    
+    p{color: $link_color}
+}
+
+p{text-align: justify;}
+
+.btn{
+    border-radius: 3px;
+    color: white;
+    i{color: white;}
+}
+
+

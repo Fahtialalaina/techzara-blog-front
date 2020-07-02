@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { generateParams, TAG_LINK } from 'src/app/utils/links';
+import { generateParams, TAG_LINK, HEADERS } from 'src/app/utils/links';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class TagService {
    * Retourne une promise
    */
   public create(name:string):Promise<Object>{
-    return this.http.post(TAG_LINK,name)
+    return this.http.post(TAG_LINK,name,{headers:HEADERS})
     .toPromise();
   }
 
@@ -31,7 +31,7 @@ export class TagService {
       key:"page",
       value:page.toString()
     }]);
-    return this.http.get(TAG_LINK+params)
+    return this.http.get(TAG_LINK+params,{headers:HEADERS})
     .toPromise();
   }
 
@@ -42,11 +42,7 @@ export class TagService {
    * Retourne une promise
    */
   public getOne(id:string):Promise<Object>{
-    var params=generateParams([{
-      key:"id",
-      value:id
-    }])
-    return this.http.get(TAG_LINK+params)
+    return this.http.get(TAG_LINK+'/'+id,{headers:HEADERS})
     .toPromise();
   }
   
@@ -57,11 +53,7 @@ export class TagService {
    * Retourne une promise
    */
   public remove(id:string){
-    var params=generateParams([{
-      key:"id",
-      value:id
-    }])
-    return this.http.delete(TAG_LINK+params)
+    return this.http.delete(TAG_LINK+'/'+id,{headers:HEADERS})
     .toPromise();
   }
 }

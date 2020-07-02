@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { REACTION_LINK, generateParams } from 'src/app/utils/links';
+import { REACTION_LINK, generateParams, HEADERS } from 'src/app/utils/links';
 
 class Reaction{
   public reaction:string;
@@ -23,7 +23,7 @@ export class ReactionService {
    * Retourne une promise
    */
   public create(obj:Reaction):Promise<Object>{
-    return this.http.post(REACTION_LINK,obj)
+    return this.http.post(REACTION_LINK,obj,{headers:HEADERS})
     .toPromise();
   }
 
@@ -38,7 +38,7 @@ export class ReactionService {
       key:"page",
       value:page.toString()
     }]);
-    return this.http.get(REACTION_LINK+params)
+    return this.http.get(REACTION_LINK+params,{headers:HEADERS})
     .toPromise();
   }
 
@@ -49,11 +49,7 @@ export class ReactionService {
    * Retourne une promise
    */
   public getOne(id:string):Promise<Object>{
-    var params=generateParams([{
-      key:"id",
-      value:id
-    }])
-    return this.http.get(REACTION_LINK+params)
+    return this.http.get(REACTION_LINK+"/"+id,{headers:HEADERS})
     .toPromise();
   }
 
@@ -65,13 +61,9 @@ export class ReactionService {
    * Retourne une promise
    */
   public replace(reaction:string,id:string){
-    var params=generateParams([{
-      key:"id",
-      value:id
-    }])
-    return this.http.put(REACTION_LINK+params,{
+    return this.http.put(REACTION_LINK+"/"+id,{
       reaction:reaction
-      })
+      },{headers:HEADERS})
     .toPromise();
   }
   
@@ -82,11 +74,7 @@ export class ReactionService {
    * Retourne une promise
    */
   public remove(id:string){
-    var params=generateParams([{
-      key:"id",
-      value:id
-    }])
-    return this.http.delete(REACTION_LINK+params)
+    return this.http.delete(REACTION_LINK+"/"+id,{headers:HEADERS})
     .toPromise();
   }
 }
