@@ -9,6 +9,11 @@ import { PostsComponent } from './components/posts/posts.component';
 import { ArticlesComponent } from './components/articles/articles.component';
 import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { LoaderComponent } from 'src/app/utils/loader/loader.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { ArticleComponent } from './components/article/article.component';
+import { BlogComponent } from './components/blog/blog.component';
+import { SearchComponent } from './components/search/search.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +22,12 @@ import { LoaderComponent } from 'src/app/utils/loader/loader.component';
     FooterComponent, 
     PostsComponent, 
     ArticlesComponent,
-    LoaderComponent
+    LoaderComponent,
+    CommentsComponent,
+    ArticleComponent,
+    BlogComponent,
+    SearchComponent,
+    LoadingComponent
   ],
   imports: [
     CommonModule,

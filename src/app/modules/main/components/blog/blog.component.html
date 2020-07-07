@@ -1,0 +1,48 @@
+<div class="card" *ngIf="blog!=undefined">
+
+  <div class="card-image">
+    <!----------------------------------------------------------->
+   
+  
+  </div>
+
+  <div class="card-content">
+
+    <div class="avatar row">
+      <div class="circle blue col">
+        <i class="fa fa-user white-text fa-2x"></i>
+      </div>
+      <div class="col">
+        <strong>{{blog.createBy}}</strong>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <br>
+    <span class="card-title"><strong>{{blog.title}}</strong></span>
+    <p>
+      {{blog.description}}
+    </p>
+    <small class="date">{{blog.createdAt}}</small>
+  </div>
+  <div class="card-action">
+    <a href="" class="blue-text">
+      <i class="comment fa fa-comment"></i> Commentaires {{blog.comments.length}}
+    </a>
+
+    <a class="blue-text">
+      <i class="heart fa fa-heart"></i> Reactions {{blog.reactions.length}}
+    </a>
+  </div>
+
+</div>
+
+<div class="card" *ngIf="blog==undefined">
+  <div class="card-content" align="center">
+    <app-loading></app-loading>
+  </div>
+</div>
+
+<div *ngIf="blog!=undefined">
+  <app-comments [iri]="blog['@id']"></app-comments>
+</div>
+<br><br><br><br>

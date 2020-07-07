@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BLOG_LINK, generateParams, HEADERS } from 'src/app/utils/links';
+import { BLOG_LINK, generateParams, HEADERS, TOKEN_KEY } from 'src/app/utils/links';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 
-class Blog{
-  public title:string;
-  public description:string;
-  public images:Array<string>;
-  public tags:Array<string>;
+interface Blog{
+  title:string;
+  description:string;
+  images:Array<string>;
+  tags:Array<string>;
+  user:string;
 }
 
 @Injectable({
@@ -20,11 +21,10 @@ export class BlogService implements CanActivate {
 
 
   canActivate(route: ActivatedRouteSnapshot, state:RouterStateSnapshot): boolean{
-    if(localStorage.getItem("SESSION_TOKEN")!=null){
+    if(localStorage.getItem(TOKEN_KEY)!=null){
       location.assign('/home');
       return false;
     }
-    console.log("coucou");
     return true;
   }
 
@@ -62,6 +62,11 @@ export class BlogService implements CanActivate {
    */
   public getOne(id:string):Promise<Object>{
     return this.http.get(BLOG_LINK+"/"+id,{headers:HEADERS})
+    .toPromise();
+  }
+
+  public getComments(id:string):Promise<Object>{
+    return this.http.get(BLOG_LINK+"/"+id+"/comments",{headers:HEADERS})
     .toPromise();
   }
 

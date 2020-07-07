@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { USER_LINK, generateParams, HEADERS } from 'src/app/utils/links';
-import { CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot, Router, CanDeactivate } from '@angular/router';
+import { USER_LINK, generateParams, HEADERS, TOKEN_KEY } from 'src/app/utils/links';
+import { CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot, Router } from '@angular/router';
 
-const CONNEXION_LINK="https://blog.techzara.org​/authentication_token";
+const CONNEXION_LINK="https://techzara.org​/authentication_token";
 
-class User{
+interface User{
   /**
    * @var username: string
    */
-  public username:string;
+  username:string;
   /**
    * @var password: string
    */
-  public password:string;
+  password:string;
   /**
    * @var email: string
    */
-  public email:string;
+  email:string;
   /**
    * @var pseudo: string
    */
-  public pseudo:string;
+  pseudo:string;
 }
 
 @Injectable({
@@ -34,7 +34,7 @@ export class UserService implements CanActivate {
               private _router:Router) { }
 
   canActivate(route:ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if(localStorage.getItem("SESSION_TOKEN")==null){
+    if(localStorage.getItem(TOKEN_KEY)==null){
         location.assign("/")
         return false;
     }
@@ -74,6 +74,11 @@ export class UserService implements CanActivate {
    */
   public getOne(id:string):Promise<Object>{
     return this.http.get(USER_LINK+"/"+id,{headers:HEADERS})
+    .toPromise();
+  }
+
+  public getBlogs(id:string):Promise<Object>{
+    return this.http.get(USER_LINK+"/"+id+"/blogs",{headers:HEADERS})
     .toPromise();
   }
 

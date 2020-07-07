@@ -1,0 +1,9 @@
+@import "../articles/articles.component.scss";
+
+div.card{
+    color:$text_color;
+    div.card-action{
+        span{margin-left: 15px;}
+    }
+
+}
